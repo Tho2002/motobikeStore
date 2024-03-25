@@ -1,0 +1,31 @@
+extends  ../../default/index.pug 
+
+block main
+ .container.my-3
+   .row 
+    .col-12
+      h1 Thông tin chi tiết xe
+       
+         if (listbike.title)
+          h1(class="mb-4") Tên sản phẩm: #{listbike.title}
+         if (listbike.price)
+           div(class="mb-4") Giá: <b> #{listbike.price}$</b>
+         if (listbike.discountPercentage)
+           div(class="mb-4") Giảm Giá: <b> #{listbike.discountPercentage}%</b>
+         if (listbike.stock)
+           div(class="mb-4") Còn Lại: <b> #{listbike.stock}</b>    
+         if (listbike.thumbnail)
+           div(class="mb-4")
+            img(
+               src=listbike.thumbnail 
+               style="width:100px"
+            )
+        
+         if (listbike.position)   
+          div(class="mb-4") Vị trí #{listbike.position}
+         if (listbike.description) 
+            div(class="mb-4")  #{listbike.description}
+            a(
+             class="btn btn-warning btn-sm"
+             href=`${prefixAdmin}/products/edit/${listbike.id}`
+            ) Chỉnh sửa  

@@ -1,0 +1,74 @@
+.header {
+  background: rgb(43, 173, 238);
+  padding: 15px 0;
+  position: sticky;
+  top: 1px;
+  z-index: 999;
+}
+.header .inner-logo a {
+  font-size: 24px;
+  font-weight: 700px;
+  color: rgb(239, 78, 3);
+}
+.body .sider {
+  width: 100px;
+  background-color: rgba(56, 225, 9, 0.76);
+
+  height: 100%;
+  position: fixed;
+  top: 90px;
+  left: 1px;
+}
+.body .main {
+  margin: 4px;
+  position: relative;
+  left: 100px;
+  width: calc(100%-100px);
+}
+.inner-menu ul li a {
+  color: rgb(19, 19, 231);
+}
+[show-alert].alert-hidden {
+  animation-name: alert-hidden;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+[show-alert] {
+  position: fixed;
+  top: 7px;
+  right: 15px;
+  z-index: 9999;
+}
+@keyframes alert-hidden {
+  from {
+    right: 15px;
+  }
+  to {
+    display: none;
+    right: -10%;
+  }
+}
+[close-alert] {
+  color: red;
+  background-color: aqua;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+}
+.upload-image-preview {
+  width: 1500px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 5px;
+}
+.image-preview[src=""] {
+  display: none;
+}
+.detail-motobike {
+  background-color: rgb(115, 244, 244);
+  width: 500px;
+
+  border-radius: 50px solid #de414133;
+}
