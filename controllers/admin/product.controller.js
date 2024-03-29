@@ -3,6 +3,9 @@ const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
+const ProductCategory = require("../../models/product-category.model");
+const createTreeHelper = require("../../helpers/createTree");
+//[GET]
 module.exports.product = async (req, res) => {
   //bộ lọc
   const filterStatus = filterStatusHelper(req.query);
@@ -27,10 +30,19 @@ module.exports.product = async (req, res) => {
     req.query,
     countListBike
   );
-
   //end pagination
+
+  //sort
+  let sort = {};
+
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue;
+  } else {
+    sort.position = "desc";
+  }
+  ///
   const listbike = await ListBike.find(find)
-    .sort({ position: "desc" })
+    .sort(sort)
     .limit(objPagination.limitItem)
     .skip(objPagination.currentPage);
 
@@ -101,7 +113,13 @@ module.exports.deleteItem = async (req, res) => {
   res.redirect("back");
 };
 module.exports.create = async (req, res) => {
-  res.render("admin/pages/product/create", { titlePage: "Thêm mới sản phẩm" });
+  let find = { deleted: false };
+  const category = await ProductCategory.find(find);
+  const newcategory = createTreeHelper.tree(category);
+  res.render("admin/pages/product/create", {
+    titlePage: "Thêm mới sản phẩm",
+    category: newcategory,
+  });
 };
 module.exports.createPost = async (req, res) => {
   req.body.price = parseInt(req.body.price);
@@ -128,9 +146,12 @@ module.exports.edit = async (req, res) => {
       _id: req.params.id,
     };
     const listbike = await ListBike.findOne(find);
+    const category = await ProductCategory.find({ deleted: false });
+    const newcategory = createTreeHelper.tree(category);
     res.render("admin/pages/product/edit", {
       titlePage: "Chỉnh sửa sản phẩm",
       listbike: listbike,
+      category: newcategory,
     });
   } catch (error) {
     req.flash("error", `Lỗi không thể chỉnh sửa sản phẩm`);

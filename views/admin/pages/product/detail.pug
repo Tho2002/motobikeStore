@@ -26,7 +26,7 @@ block main
    if (listbike.position)   
     div(class="mb-4") Vị trí #{listbike.position}
    if (listbike.description) 
-      div(class="mb-4")  #{listbike.description}
+      div(class="mb-4")  !{listbike.description}
       a(
        class="btn btn-warning btn-sm"
        href=`${prefixAdmin}/products/edit/${listbike.id}`
