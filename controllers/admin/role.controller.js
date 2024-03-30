@@ -1,6 +1,6 @@
 const Role = require("../../models/role.model");
 const systemConfig = require("../../config/system");
-const { json } = require("body-parser");
+
 module.exports.role = async (req, res) => {
   let find = {
     deleted: false,
